@@ -1,0 +1,138 @@
+body{
+    background-image: url("imgs/Background.jpeg");
+    background-size: cover;
+}
+
+.form{
+  float: right;
+}
+
+#head{
+  position: absolute;
+width: 416px;
+height: 158px;
+left: 45px;
+top: 130px;
+
+font-family: url("/static/fonts/Arvo-Bold.ttf");
+font-style: normal;
+font-weight: bold;
+font-size: 64px;
+line-height: 79px;
+
+color: #FFFFFF;
+}
+
+.dot{
+  position: absolute;
+width: 18px;
+height: 18px;
+left: 36px;
+top: 425px;
+border-radius: 50%;
+background: #FFFFFF;
+
+}
+
+#newuserbox{  
+  position: absolute;
+width: 215px;
+height: 65px;
+left: 70px;
+top: 400px; 
+
+background: #FFFFFF;
+border-radius: 15px;
+
+font-family: Arvo;
+font-style: normal;
+font-weight: bold;
+font-size: 36px;
+line-height: 0px;
+color: #596496;
+}
+
+#olduserbox{
+  position: absolute;
+width: 477px;
+height: 65px;
+left: 70px;
+top: 500px; 
+
+border: 3px solid #FFFFFF;
+background-color: #596496;
+box-sizing: border-box;
+border-radius: 15px;
+
+  font-family: Arvo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 0px;
+  
+  color: #FFFFFF;
+}
+
+#name,#email,#occupation,#password,#reenter{
+  position: absolute;
+  width: 350px;
+  height: 50px;
+  left: 910px;
+  top: 134px;
+  
+  background: rgba(196, 196, 196, 0.25);
+  box-shadow: 0px 4px 50px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 33px;
+
+}
+
+::placeholder { 
+  color:#FFFFFF;
+  opacity: 0.6; 
+  padding-left: 20px;
+}
+
+#name{
+  top: 150px;
+}
+
+#email{
+  top: 225px;
+}
+
+#occupation{
+  top: 300px;
+}
+
+#password{
+  top: 375px;
+}
+
+#reenter{
+  top: 450px;
+}
+
+#register{
+  position: absolute;
+width: 197px;
+height: 47px;
+left: 990px;
+top: 575px;
+
+background: #FFFFFF;
+border-radius: 15px;
+
+color: #596496;
+font-family: Open Sans;
+font-style: normal;
+font-weight: 800;
+font-size: 40px;
+line-height: 0px;
+    
+}
