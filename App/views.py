@@ -5,3 +5,9 @@ def register(request):
 
 def login(request):
     return render(request, 'login.html')
+
+def index(request):
+    return render(request, 'index.html')
+
+def contact(request):
+    return render(request, 'contact.html')
