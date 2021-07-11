@@ -1,0 +1,99 @@
+ul.meetbar {
+    list-style-type: none;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    background-color: #d1d1d1;
+  }
+  
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 80px;
+    left: 0;
+    background-color: #233554;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 15px 25px 17px rgba(0, 0, 0, 0.25);
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f1f1f1;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    font-size: 26px;
+    color: #f1f1f1;
+    font-weight: bolder;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  nav{
+    background-color: #233554;
+     height: 70px; 
+    font-family: Open Sans;
+    font-style: normal;
+    }
+
+  #a,#b,#c,#d,#e{
+    margin-right: 150px;
+    }
+
+  .nav-item{
+    margin-top: 15px;
+    }
+
+  .insidehamburger {
+        width: max-content;
+        height: fit-content;
+        background-color: #f1f1f1;
+    }
+
+  #outsideham {
+      padding-left: 20px;
+      width: 60px;
+      height: fit-content;
+      color: #f1f1f1;
+      background-color: #233554;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+  }
+
+  .Donebtn {
+      height: 50px;
+      width: auto;
+      margin-left: 1430px;
+  }
+
+  #donebutton {
+      height: 50px;
+      width: auto;
+      background-color: #d1d1d1;
+      border: 0px;
+      font-size: 25px;
+      font-weight: 900;
+      color: #233554;
+      font-family: "Lato", sans-serif;
+  }

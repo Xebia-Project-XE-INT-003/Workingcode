@@ -1,16 +1,17 @@
 from django.db import models
-
+from AMS import settings
 # Create your models here.
+from datetime import date,datetime
 
 
 class Appointment(models.Model):
    name=models.CharField(max_length=122)
-   date=models.DateField
-   time=models.TimeField
+   date=models.CharField(max_length=122, default='2000-12-30')
+   time=models.CharField(max_length=122, default='9:00 AM')
    urgency=models.CharField(max_length=122)
    description=models.CharField(max_length=400)
-   def __str__(self):
-        return self.name
+     #    def __str__(self):
+     #         return self.name
 
  
 class Person(models.Model):

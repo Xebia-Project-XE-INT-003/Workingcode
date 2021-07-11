@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# USE_L10N=False
+# DATE_FORMAT = "d-m-Y"
 
 # Application definition
 
@@ -53,6 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'AMS.urls'
 
+# USE_L10N=False
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

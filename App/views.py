@@ -17,26 +17,18 @@ def register(request):
         reenter=request.POST.get('reenter','')
         occupation=request.POST.get('occupation','')
 
-        print(passw)
-        print(reenter)
-
         if reenter!=passw:
-            print("Hello")
             return render(request, 'register.html')
         
         try:
             person=Person(name=name,email=email,password=passw,occupation=occupation)
-            print("person")
-            print(person)
-
+           
             # if person.is_valid():
-            print("Save")
             person.save() 
             return redirect("/loginUser")   
             
 
         except:
-            print("Except")
             return render(request, 'register.html')
 
     return render(request, 'register.html')
@@ -48,12 +40,11 @@ def loginUser(request):
 
         try:
             person = Person.objects.get(email=email, password=passw)
-            print(email)
-            print(passw)
-            print(person)
-            return redirect("/contact")
             person.is_loggedIn=True
-            person.save()
+            person.is_active=False
+            # person.save()
+            return redirect("/contact")
+            
         except Appointment.DoesNotExist:
                 return render(request, 'login.html')
 
@@ -77,19 +68,25 @@ def addAppointment(request):
     
     if request.method == 'POST':
         
-        name=request.POST.get('name'),
-        date=request.POST.get('date'),
-        time=request.POST.get('time'),
-        urgency=request.POST.get('urgency'),
-        description=request.POST.get('description')
+        name=str(request.POST.get('name')),
+        meetdate=str(request.POST.get('date')),
+        meettime=str(request.POST.get('time')),
+        urgency=str(request.POST.get('urgency')),
+        description=str(request.POST.get('description'))
 
-        appointment=Appointment(name=name,date=date,time=time,urgency=urgency,description=description)
+        appointment=Appointment(name=name,date=meetdate,time=meettime,urgency=urgency,description=description)
 
-        if appointment.is_valid():
-            appointment.save()
-            # return redirect('index')
-        else:
-            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+        print(name)
+        print(meetdate)
+        print(description)
+        print(meettime)
+        print(urgency)
+        print(appointment)
+
+        print("save")
+        appointment.save()
+        return redirect('index.html')
+        
     else:
         return render(request, 'addAppointment.html')
 
@@ -109,7 +106,7 @@ def deleteAppointment(request, app_id):
 def updateAppointment(request, app_id):
     app_id = int(app_id)
     try:
-        book_sel = Appointment.objects.get(id = app_id)
+        app_sel = Appointment.objects.get(id = app_id)
     except Appointment.DoesNotExist:
         # return redirect('index')
         print("Not in db")
@@ -125,13 +122,13 @@ def updateAppointment(request, app_id):
     if appointment.is_valid():
         appointment.save()
         # return redirect('index')
-    return render(request,'appointments.html')
+    return render(request,'meetings.html')
 
 
 #show appointments
 def showAppointments(request):
     appointments = Appointment.objects.all()
-    return render(request, 'appointments.html')
+    return render(request, 'meetings.html')
 
 
 #show appointments
