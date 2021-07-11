@@ -3,8 +3,9 @@
     "",
     "\\AMS",
     "\\App",
+    "\\static",
     "\\templates"
   ],
-  "SelectedNode": "\\App\\models.py",
+  "SelectedNode": "\\templates\\index.html",
   "PreviewInSolutionExplorer": false
 }

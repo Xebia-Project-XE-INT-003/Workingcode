@@ -21,10 +21,13 @@
 
             <button id="newuserbox">New user?</button>
         
-            <a href="login"><button id="olduserbox">Already have an account?</button></a>
+            <a href="loginUser"><button id="olduserbox">Already have an account?</button></a>
 
             <div class="form">
-                <form action="">
+
+                <form action="register" method="post">
+
+                    {% csrf_token %}
                     <input type="text" placeholder="Your Name" id="name" name="name"> 
 
                     <input type="email" placeholder="Your Email" id="email" name="email">

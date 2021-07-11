@@ -1,7 +1,7 @@
 from django.contrib import admin
-
-from App.models import Appointment
+from App.models import *
 
 # Register your models here.
 
 admin.site.register(Appointment)
+admin.site.register(Person)
