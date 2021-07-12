@@ -51,24 +51,27 @@
                   Upcoming
                 <div>
               </summary>
-              
+              {% for appointment in appointments %}
               <div class="dropdown-content">
-                <summary>
-                    <div class="dropdown-trigger">
-                        Marketting Team
-                    </div>
-                </summary> 
+                    <summary>
+                        <!--<div class="dropdown-trigger">
+                            Marketting Team
+                        </div> -->
+                        {{appointment.name}}
+                    </summary> 
                 <div class="dropdown content">
                     <ul>
-                        <li>Urgency: Low</li>
-                        <li>Date: </li>
-                        <li>Time: </li>
+                        <li>Urgency: {{appointment.urgency}}</li>
+                        <li>Date: {{appointment.date}}</li>
+                        <li>Time: {{appointment.time}}</li>
+                        <li>Description: {{appointment.description}} </li>
                     </ul>
-                    <button type="button">Cancel</button>
-                    <button type="button">Reschdule</button>
-                </div>   
+                    <a href="deleteAppointment/{{appointment.id}}"><button type="button">Cancel</button></a>
+                    <a href="updateAppointment/{{appointment.id}}"><button type="button">Reschdule</button></a>
+                </div> 
+                {% endfor %}
                 </summary>
-              </div>
+             </div>
             </details>
           </div>
           <div class="dropdown">

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <title>Add Meeting</title>
+    <link rel="stylesheet" href="../static/addmeet.css">
+</head>
+<body>
+ <nav class="navbar-light">
+        <ul class="nav justify-content-center">
+
+            <li class="nav-item" id="a">
+                <a class="text-light btn" href=""><h3>Home</h3></a>
+            </li>
+
+            <span class="dot"></span>
+
+            <li class="nav-item" id="b">
+                <a class="text-light btn" href="#"><h3>Calendar</h3></a>
+            </li>
+            <li class="nav-item" id="c">
+                <a class="text-light btn" href="contact"><h3>About</h3></a>
+            </li>
+            <li class="nav-item" id="d">
+                <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
+            </li>
+            <li class="nav-item" id="d">
+                <a id="logout button" class="text-light btn" type="button" href="contact"><h3>Logout</h3></a>
+            </li>
+        </ul>
+    </nav>
+
+    <p>
+    <div id="mySidenav" class="sidenav">
+        <ul class="meetbar">
+            <div id="insideham" class="insidehamburger">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+            </div>  
+            <li>  <a href="#">Dashboard </a></li>
+            <li>   <a href="#">Add meeting </a></li>
+            <li>   <a href="#">My meeting </a></li>
+            <li>  <a href="#">Profile </a></li>
+        </ul>  
+    </div>
+    <div id="outsideham">
+        <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    </div>
+    </p>
+    
+{% comment %} <div id="Donebtn">
+    <button id="donebutton" type ="submit" value= "Done" >
+</div>  {% endcomment %}
+
+<form action="/updateAppointment/{{appointment.id}}" method="post">
+
+{% csrf_token %}
+
+    <p>Meeting Title :<input type = "text"  name="name" value={{appointment.name}}></p>
+    <p>Description : <input type = "text"  name ="description" value={{appointment.description}}></p>
+    <p>Urgency : 
+    <select required name="urgency" value={{appointment.urgency}}> 
+        <option value="" disabled selected hidden>Choose one</option>
+        <option value="high">High</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+    </select>
+    </p>
+
+    {% comment %} <input type="text" name="date"> {% endcomment %}
+
+    <p>Meeting Date : <input type="text" name="date" required pattern="\d{4}-\d{2}-\d{2}"></p>
+    <p>Meeting Timing : <input type = "text" name="time"></p>
+
+    <input id="donebutton" class="Donebtn" type ="submit" value= "Done" >
+</form>
+
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0px";
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

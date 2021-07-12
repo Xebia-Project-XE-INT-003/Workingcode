@@ -42,17 +42,21 @@ def loginUser(request):
             person = Person.objects.get(email=email, password=passw)
             person.is_loggedIn=True
             person.is_active=False
-            # person.save()
-            return redirect("/contact")
+            person.save()
+            request.session['personName']=person.name
+            request.session['loggedin']=person.is_loggedIn
+            return redirect("/addAppointment")
+
             
         except Appointment.DoesNotExist:
                 return render(request, 'login.html')
 
     return render(request, 'login.html')
 
-# def logoutUser(request):
-#     logout(request)
-#     return redirect("/login")
+def logoutUser(request):
+   loggedin=request.session.get('loggedin')
+   loggedin=False
+   return redirect("/login")
 
 def index(request):
     # if request.user.is_anonymous:
@@ -66,70 +70,118 @@ def contact(request):
 #add appointments
 def addAppointment(request):
     
-    if request.method == 'POST':
-        
-        name=str(request.POST.get('name')),
-        meetdate=str(request.POST.get('date')),
-        meettime=str(request.POST.get('time')),
-        urgency=str(request.POST.get('urgency')),
-        description=str(request.POST.get('description'))
+    personLogin=request.session.get('loggedin')
 
-        appointment=Appointment(name=name,date=meetdate,time=meettime,urgency=urgency,description=description)
+    if personLogin:
+        personname=request.session.get('personName')
 
-        print(name)
-        print(meetdate)
-        print(description)
-        print(meettime)
-        print(urgency)
-        print(appointment)
+        print(personname)
 
-        print("save")
-        appointment.save()
-        return redirect('index.html')
-        
+        if request.method == 'POST':
+                    
+                name=request.POST.get('name'),
+                meetdate=request.POST.get('date'),
+                meettime=request.POST.get('time'),
+                urgency=request.POST.get('urgency'),
+                description=request.POST.get('description'),
+                created_by=personname
+
+                appointment=Appointment(name=name,date=meetdate,time=meettime,urgency=urgency,description=description,created_by=created_by)
+
+               
+
+                print("save")
+                appointment.save()
+                print(appointment.id)
+                request.session['createdby']=appointment.created_by
+                request.session['urgency']=appointment.urgency
+                return redirect('showAppointments')
+                    
+        else:
+                return render(request, 'addAppointment.html')
+
     else:
-        return render(request, 'addAppointment.html')
+        return redirect('/loginUser')
 
 
 #delete appointments
-def deleteAppointment(request, app_id):
-    app_id = int(app_id)
+def deleteAppointment(request,id):
+    # appointment=Appointment.objects.get(id=id)
+    # print(appID)
     try:
-        appointment = Appointment.objects.get(id = app_id)
+        appointment=Appointment.objects.get(id=id)
+        print(appointment)
+        appointment.delete()
     except Appointment.DoesNotExist:
         # return redirect('index')
-        appointment.delete()
-    # return redirect('index')
+        return redirect('showAppointments')
+    return redirect('showAppointments')
 
 
 #update appointments
-def updateAppointment(request, app_id):
-    app_id = int(app_id)
+def updateAppointment(request, id):
+
+    print(id)
+
     try:
-        app_sel = Appointment.objects.get(id = app_id)
+        appointment = Appointment.objects.get(id = id)
+
+        print(appointment)
+
+        return render(request, 'updateAppointment.html')
+
+        meetdate=request.POST.get('date'),
+        meettime=request.POST.get('time')
+
+        appointment =Appointment(meetdate,meettime)
+
+        appointment.save()
+
     except Appointment.DoesNotExist:
         # return redirect('index')
         print("Not in db")
     
-    name=request.POST.get('name'),
-    date=request.POST.get('date'),
-    time=request.POST.get('time'),
-    urgency=request.POST.get('urgency'),
-    description=request.POST.get('description')
+    # name=request.POST.get('name'),
+    # date=request.POST.get('date'),
+    # time=request.POST.get('time'),
+    # urgency=request.POST.get('urgency'),
+    # description=request.POST.get('description')
 
-    appointment=Appointment(name=name,date=date,time=time,urgency=urgency,description=description)
+    # appointment=Appointment(name=name,date=date,time=time,urgency=urgency,description=description)
 
-    if appointment.is_valid():
-        appointment.save()
+    # if appointment.is_valid():
+    #     appointment.save()
         # return redirect('index')
-    return render(request,'meetings.html')
+    return render(request,'showAppointments.html')
+
+# def update(request):
 
 
 #show appointments
 def showAppointments(request):
-    appointments = Appointment.objects.all()
-    return render(request, 'meetings.html')
 
+    personLogin=request.session.get('loggedin')
+    personname=request.session.get('personName')
+    appowner=request.session.get('createdby')
+    urgency=request.session.get('urgency')
+
+    print(urgency)
+
+    if personLogin:
+        
+        if personname ==appowner:
+            print('same owner')
+
+            lows=Appointment.objects.all().filter(urgency="['low']")
+
+            print(lows)
+
+            appointments = Appointment.objects.all()
+        return render(request, 'showAppointments.html', {
+            'appointments':appointments
+        })
+    else:
+        return redirect('/loginUser')
 
 #show appointments
 # def showAppointments(request, time):
