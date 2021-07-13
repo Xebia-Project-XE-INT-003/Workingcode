@@ -33,6 +33,17 @@
         </ul>
     </nav>
 
+{% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
     <p>
     <div id="mySidenav" class="sidenav">
         <ul class="meetbar">
@@ -54,14 +65,14 @@
     <button id="donebutton" type ="submit" value= "Done" >
 </div>  {% endcomment %}
 
-<form action="/updateAppointment/{{appointment.id}}" method="post">
+<form action="/update/{{appointment.id}}" method="post">
 
 {% csrf_token %}
 
-    <p>Meeting Title :<input type = "text"  name="name" value={{appointment.name}}></p>
-    <p>Description : <input type = "text"  name ="description" value={{appointment.description}}></p>
+    <p>Meeting Title :<input type = "text"  name="name" value="{{appointment.name}}"></p>
+    <p>Description : <input type = "text"  name ="description"></p>
     <p>Urgency : 
-    <select required name="urgency" value={{appointment.urgency}}> 
+    <select required name="urgency"> 
         <option value="" disabled selected hidden>Choose one</option>
         <option value="high">High</option>
         <option value="low">Low</option>

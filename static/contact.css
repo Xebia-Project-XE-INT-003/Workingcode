@@ -1,6 +1,11 @@
 body {
     background-image: url("/static/imgs/contactBG.png");
     color: white;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 ::placeholder {
@@ -24,6 +29,24 @@ input {
     font-size: 24px;
     line-height: 33px;
 }
+
+nav{
+    background-color: #233554;
+     height: 85px; 
+    font-family: Open Sans;
+    font-style: normal;
+    }
+
+  #a,#b,#c,#d{
+    margin-right: 200px;
+    }
+
+  #a{
+    margin-left: 85px;
+  }  
+  .nav-item{
+    margin-top: 15px;
+    }
 
 #name {
     top: 500px;
@@ -58,8 +81,29 @@ input {
 }
 
 #image {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
     margin-left: 100px;
     margin-top: 40px;
 }
+
+#whatwedotext{
+    float: right;
+    margin-right: 700px;
+    width: 500px;
+    margin-bottom: 100px;
+    margin-left: 100px;
+}
+
+#logout{
+    /* margin-right: 100px; */
+    border-radius: 15px;
+    height: 40px;
+    width: 90px;
+    margin-top:25px;
+    border: 2px white solid;
+    font-size: 20px;
+    padding: 5px;
+    color: white;
+    background-color: #233554;
+  }

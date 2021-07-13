@@ -9,25 +9,37 @@
         <title>Register</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/register.css">
-
+        <link rel="stylesheet" href="/static/register.css">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arvo" />
     </head>
     
     <body>
+
+    
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}}" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
         <div class="register">
             <h1 id="head">We are glad to serve you!</h1>
 
             <span class="dot"></span>
 
-            <button id="newuserbox">New user?</button>
+            <a href="/register"><button id="newuserbox">New user?</button><a>
         
-            <a href="loginUser"><button id="olduserbox">Already have an account?</button></a>
+            <a href="/loginUser"><button id="olduserbox">Already have an account?</button></a>
 
             <div class="form">
+                <form action="/register" method="post">
 
-                <form action="register" method="post">
-
-                    {% csrf_token %}
+                {% csrf_token %}
                     <input type="text" placeholder="Your Name" id="name" name="name"> 
 
                     <input type="email" placeholder="Your Email" id="email" name="email">

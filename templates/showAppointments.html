@@ -11,96 +11,102 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/meetings.css"> 
+        <link rel="stylesheet" href="../static/addmeet.css"> 
     </head>
-    <nav class="navbar-light">
-        <ul class="nav justify-content-center">
+<body>
+     <nav class="navbar-light">
+               <ul class="nav justify-content-center">
+       
+                   <li class="nav-item" id="a">
+                       <a class="text-light btn" href=""><h3>Home</h3></a>
+                   </li>
+       
+                   <span class="nav-item" id= "dot"></span>
+       
+                   <li class="nav-item" id="b">
+                       <a class="text-light btn" href="#"><h3>Calendar</h3></a>
+                   </li>
+                   <li class="nav-item" id="c">
+                       <a class="text-light btn" href="contact"><h3>About</h3></a>
+                   </li>
+                   <li class="nav-item" id="d">
+                       <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
+                   </li>
+                   <li  id="e">
+                       <a  type="button" href="logoutUser"><button id="logout" class="text-light btn">Logout</button></a>
+                   </li>
+               </ul>
+           </nav>
 
-            <li class="nav-item" id="a">
-                <a class="text-light btn" href=""><h3>Home</h3></a>
-            </li>
 
-            <span class="dot"></span>
-
-            <li class="nav-item" id="b">
-                <a class="text-light btn" href="#"><h3>Calendar</h3></a>
-            </li>
-            <li class="nav-item" id="c">
-                <a class="text-light btn" href="contact"><h3>About</h3></a>
-            </li>
-            <li class="nav-item" id="d">
-                <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
-            </li>
-        </ul>
-    </nav>
     <!-- Sidebar -->
-<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
-    <h3 class="w3-bar-item">Menu</h3>
-    <a href="#" class="w3-bar-item w3-button">Dashboard</a>
-    <a href="#" class="w3-bar-item w3-button">Add Meeting</a>
-    <a href="#" class="w3-bar-item w3-button">My Meetings</a>
-    <a href="#" class="w3-bar-item w3-button">Profile</a>
-  </div>
-  <div style="margin-left:25%">
-    <body>
+            <p>
+                <div id="mySidenav" class="sidenav">
+                    <div class="insidehamburger">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>   
+                    </div>
+                    <span id= "dot1"></span>
+                    <ul class="meetbar">      
+                        <li>  <a href="/showAppointments">Dashboard </a></li>
+                        <li>   <a href="/addAppointment">Add meeting </a></li>
+                        <li>   <a href="/showAppointments">My meeting </a></li>
+                        <li>  <a href="#">Profile </a></li>
+                    </ul>  
+                </div>
+                <div id="outsideham">
+                    <span class="menu" style="font-size:36px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                </div>
+           </p>
+
+
         
-        <div class="dropdown">
-            <details>
-              <summary>
-                <div class="dropdown-trigger">
-                  Upcoming
-                <div>
-              </summary>
-              {% for appointment in appointments %}
-              <div class="dropdown-content">
-                    <summary>
-                        <!--<div class="dropdown-trigger">
-                            Marketting Team
-                        </div> -->
-                        {{appointment.name}}
-                    </summary> 
-                <div class="dropdown content">
-                    <ul>
-                        <li>Urgency: {{appointment.urgency}}</li>
-                        <li>Date: {{appointment.date}}</li>
-                        <li>Time: {{appointment.time}}</li>
-                        <li>Description: {{appointment.description}} </li>
-                    </ul>
-                    <a href="deleteAppointment/{{appointment.id}}"><button type="button">Cancel</button></a>
-                    <a href="updateAppointment/{{appointment.id}}"><button type="button">Reschdule</button></a>
-                </div> 
-                {% endfor %}
-                </summary>
-             </div>
-            </details>
-          </div>
-          <div class="dropdown">
-            <details>
-              <summary>
-                <div class="dropdown-trigger">
-                  Undecided
-                <div>
-              </summary>
-              
-              <div class="dropdown-content">
-                Dropdown content here…
-              </div>
-            </details>
-          </div>
-          <div class="dropdown">
-            <details>
-              <summary>
-                <div class="dropdown-trigger">
-                  Completed
-                <div>
-              </summary>
-              
-              <div class="dropdown-content">
-                Dropdown content here…
-              </div>
-            </details>
-          </div>
-        
+        <h3 class="text-center">Upcoming</h3>
+    {% for high in highs %}
+        <div class="text-center" id="high">
+            <h4>{{high.name}}</h4>
+            <h4>{{high.urgency}}</h4>
+
+            <p>{{high.description}}</p>
+
+            <p>{{high.date}}</p>
+            <p>{{high.time}}</p>
+
+            <a href="/deleteAppointment/{{high.id}}"><button>Cancel</button><a>
+            <a href="/updateAppointment/{{high.id}}"><button>Reschedule</button><a>
+        </div>
+    {% endfor %}
+
+        <h3 class="text-center">Undecided</h3>
+    {% for med in meds %}
+        <div class="text-center" id="med">
+            <h4>{{med.name}}</h4>
+            <h4>{{med.urgency}}</h4>
+
+            <p>{{med.description}}</p>
+
+            <p>{{med.date}}</p>
+            <p>{{med.time}}</p>
+
+            <a href="/deleteAppointment/{{med.id}}"><button>Cancel</button><a>
+            <a href="/updateAppointment/{{med.id}}"><button>Reschedule</button><a>
+        </div>
+    {% endfor %}
+
+        <h3 class="text-center">Completed</h3>
+    {% for low in lows %}
+        <div class="text-center" id="low">
+            <h4>{{low.name}}</h4>
+            <h4>{{low.urgency}}</h4>
+
+            <p>{{low.description}}</p>
+
+            <p>{{low.date}}</p>
+            <p>{{low.time}}</p>
+
+            <a href="/deleteAppointment/{{low.id}}"><button>Cancel</button><a>
+            <a href="/updateAppointment/{{low.id}}"><button>Reschedule</button><a>
+        </div>
+    {% endfor %}
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

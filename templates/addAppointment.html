@@ -27,8 +27,8 @@
                    <li class="nav-item" id="d">
                        <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
                    </li>
-                   <li class="nav-item" id="d">
-                       <a id="logout button" class="text-light btn" type="button" href="contact"><h3>Logout</h3></a>
+                   <li id="e" >
+                        <a  type="button" href="logoutUser"><button id="logout">Logout</button></a>
                    </li>
                </ul>
            </nav>
@@ -41,9 +41,9 @@
                     </div>
                     <span id= "dot1"></span>
                     <ul class="meetbar">      
-                        <li>  <a href="#">Dashboard </a></li>
-                        <li>   <a href="#">Add meeting </a></li>
-                        <li>   <a href="#">My meeting </a></li>
+                        <li>  <a href="/showAppointments">Dashboard </a></li>
+                        <li>   <a href="/addAppointment">Add meeting </a></li>
+                        <li>   <a href="/showAppointments">My meeting </a></li>
                         <li>  <a href="#">Profile </a></li>
                     </ul>  
                 </div>
@@ -57,21 +57,26 @@
 
 {% csrf_token %}
 
-    <input id="meetTitle" class="titlebox" type = "text" placeholder="Meeting Title">
-    <textarea class="dscbox" id="description" type = "text" placeholder="Description"></textarea>
-    <div class= "">
-                   <label for"urgbox">Urgency</label> 
-                   <select class="urgbox" name="urgencytype" required placeholder="Urgency"> 
+    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5">
+
+    <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox"></textarea>
+
+    <div name="urgency">
+                   
+                   <select class="urgbox" required placeholder="Urgency" name="urgency" style="border-radius:15p;"> 
                        <option value="" disabled selected hidden>Urgency</option>
-                       <option value="high">High</option>
-                       <option value="low">Low</option>
-                       <option value="medium">Medium</option>
+                       <option value="high" name="urgency">Upcoming</option>
+                       <option value="medium" name="urgency">To be decided</option>
+                       <option value="low" name="urgency">Completed</option>
                     </select>
                 </p>
             </div>
 
-    <input class="datebox" id="meetDate" type="text" name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Meeting date (YYYY-MM-DD)">
-    <input class="timebox" id= "meetTime" type = "text" name="time" placeholder="Meeting Timing (Ex: 9:00 AM)">
+    <input class="datebox" id="meetDate"  name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Meeting date (YYYY-MM-DD)">
+    <!--<input class="timebox" id= "meetTime"  name="time" placeholder="Meeting Timing (Ex: 9:00 AM)">-->
+
+    <input type="time" class="timebox" id="meettime" name="time" min="09:00" max="18:00" required>
+
 
     <input id="donebutton" class="Donebtn" type ="submit" value= "Done" >
 </form>

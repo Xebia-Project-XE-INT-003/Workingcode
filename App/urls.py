@@ -17,7 +17,11 @@ urlpatterns =[
 
       path('deleteAppointment/<int:id>',views.deleteAppointment),
 
+      path('logoutUser',views.logoutUser),
+
+      path('update',views.update),
+
       path('updateAppointment/<int:id>',views.updateAppointment),
 
-      path('update/<int:id>',views.updateAppointment, name='updateAppointment')
+      path('update/<int:id>',views.update, name='update')
 ]
