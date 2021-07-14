@@ -135,18 +135,22 @@ def addAppointment(request):
 
 #delete appointments
 def deleteAppointment(request,id):
-    
-    try:
-        appointment=Appointment.objects.get(id=id)
-        print(appointment)
-        appointment.delete()
 
-        messages.success(request,"Appointment deleted!")
-        return redirect('/showAppointments')
-        
-    except Appointment.DoesNotExist:
-        # return redirect('index')
-        return redirect('/showAppointments')
+    personLogin=request.session.get('loggedin')
+
+    if personLogin:
+    
+        try:
+            appointment=Appointment.objects.get(id=id)
+            print(appointment)
+            appointment.delete()
+
+            messages.success(request,"Appointment deleted!")
+            return redirect('/showAppointments')
+            
+        except Appointment.DoesNotExist:
+            # return redirect('index')
+            return redirect('/showAppointments')
     
     return redirect('/showAppointments')
 
@@ -154,62 +158,56 @@ def deleteAppointment(request,id):
 #update appointments
 def updateAppointment(request, id):
 
-    try:
-        appointment = Appointment.objects.get(id = id)
+    personLogin=request.session.get('loggedin')
 
-        return render(request, 'updateAppointment.html',{
-            'appointment':appointment
-        })
+    if personLogin:
 
-        name=request.POST.get('name','')
-        meetdate=request.POST.get('date',''),
-        meettime=request.POST.get('time','')
-        urgency=request.POST.get('urgency','')
-        description=request.POST.get('description','')
+        try:
+            appointment = Appointment.objects.get(id = id)
 
-        appointment=Appointment(name=name,date=meetdate,time=meettime, description=description, created_by=created_by, urgency=urgency)
+            return render(request, 'updateAppointment.html',{
+                'appointment':appointment
+            })
 
-        appointment.save()
-        return redirect('/showAppointments')
-
-    except Appointment.DoesNotExist:
-        # return redirect('index')
-        print("Not in db")
+        except Appointment.DoesNotExist:
+            # return redirect('index')
+            print("Not in db")
     
     return render(request,'showAppointments.html')
 
  
 def update(request, id):
 
-    if request.method=="POST":
+    personLogin=request.session.get('loggedin')
 
-            try:
-                appointment = Appointment.objects.get(id = id)
+    if personLogin: 
+        if request.method=="POST":
 
-                name=request.POST.get('name','')
-                meetdate=request.POST.get('date','')
-                meettime=request.POST.get('time','')
-                urgency=request.POST.get('urgency','')
-                description=request.POST.get('description','')
-                created_by=appointment.created_by
+                try:
+                    appointment = Appointment.objects.get(id = id)
 
-                appointment.name=name
-                appointment.date=meetdate
-                appointment.time=meettime
-                appointment.urgency=urgency
-                appointment.description=description
+                    name=request.POST.get('name','')
+                    meetdate=request.POST.get('date','')
+                    meettime=request.POST.get('time','')
+                    urgency=request.POST.get('urgency','')
+                    description=request.POST.get('description','')
+                    created_by=appointment.created_by
 
-                appointment.save()
-                messages.success(request,"Appointment updated!")
-                # time.sleep(2)
-                return redirect('/showAppointments')
+                    appointment.name=name
+                    appointment.date=meetdate
+                    appointment.time=meettime
+                    appointment.urgency=urgency
+                    appointment.description=description
 
-            except:
-                messages.warning(request,"Unable to update appointment")
-                return redirect('/showAppointments')
+                    appointment.save()
+                    messages.success(request,"Appointment updated!")
+                    # time.sleep(2)
+                    return redirect('/showAppointments')
+
+                except:
+                    messages.warning(request,"Unable to update appointment")
+                    return redirect('/showAppointments')
             
-            
-
     else: 
 
         return redirect('/showAppointments')
@@ -227,23 +225,18 @@ def showAppointments(request):
     if personLogin:
         
         # if personname ==appowner:
-            print('same owner')
-
+            
             lows=Appointment.objects.all().filter(urgency="low")
 
             highs=Appointment.objects.all().filter(urgency="high")
 
             highnum=highs.count()
 
-            print(highnum)
-
             lownum=lows.count()
-            print(lownum)
-
+           
             meds=Appointment.objects.all().filter(urgency='medium')
 
             mednum=meds.count()
-            print(mednum)
            
             appointments = Appointment.objects.all()
 

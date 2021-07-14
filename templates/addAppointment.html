@@ -21,31 +21,11 @@
         {% endfor %}
         {% endif %}
 
-        <nav class="navbar-light">
-               <ul class="nav justify-content-center">
        
-                   <li class="nav-item" id="a">
-                       <a class="text-light btn" href=""><h3>Home</h3></a>
-                   </li>
-       
-                   <span class="nav-item" id= "dot"></span>
-       
-                   <li class="nav-item" id="b">
-                       <a class="text-light btn" href="#"><h3>Calendar</h3></a>
-                   </li>
-                   <li class="nav-item" id="c">
-                       <a class="text-light btn" href="contact"><h3>About</h3></a>
-                   </li>
-                   <li class="nav-item" id="d">
-                       <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
-                   </li>
-                   <li id="e" >
+                   {% comment %} <li id="e" >
                         <a  type="button" href="logoutUser"><button id="logout">Logout</button></a>
-                   </li>
-               </ul>
-           </nav>
-       
-
+                   </li> {% endcomment %}
+           
     <p>
                 <div id="mySidenav" class="sidenav">
                     <div class="insidehamburger">
@@ -73,7 +53,7 @@
 
     <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5">
 
-    <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox"></textarea>
+    <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox" minlength="10"></textarea>
 
     <div name="urgency">
                    

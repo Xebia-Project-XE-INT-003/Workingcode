@@ -20,29 +20,7 @@
         </div>
         {% endfor %}
         {% endif %}
- <nav class="navbar-light">
-        <ul class="nav justify-content-center">
 
-            <li class="nav-item" id="a">
-                <a class="text-light btn" href=""><h3>Home</h3></a>
-            </li>
-
-            <span class="dot"></span>
-
-            <li class="nav-item" id="b">
-                <a class="text-light btn" href="#"><h3>Calendar</h3></a>
-            </li>
-            <li class="nav-item" id="c">
-                <a class="text-light btn" href="/contact"><h3>About</h3></a>
-            </li>
-            <li class="nav-item" id="d">
-                <a class="text-light btn" href="/contact"><h3>Contact us</h3></a>
-            </li>
-            <li class="nav-item" id="e">
-                <a id="logout" class="text-light btn" type="button" href="/logoutUser"><h3>Logout</h3></a>
-            </li>
-        </ul>
-    </nav>
 
 {% if messages %}
         {% for message in messages %}
@@ -80,7 +58,7 @@
 
 {% csrf_token %}
 
-    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5">
+    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5" value="{{appointment.name}}">
 
     <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox"></textarea>
 
