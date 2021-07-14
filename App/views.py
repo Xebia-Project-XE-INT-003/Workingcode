@@ -115,10 +115,11 @@ def addAppointment(request):
                     meetdate=request.POST.get('date','')
                     meettime=request.POST.get('time','')
                     urgency=request.POST.get('urgency','')
+                    apptype=request.POST.get('apptype','')
                     created_by=personname
                     
                     try:
-                        appointment=Appointment(name=name,date=meetdate,time=meettime, description=description, created_by=created_by, urgency=urgency)
+                        appointment=Appointment(name=name,date=meetdate,time=meettime, description=description, created_by=created_by, urgency=urgency,apptype=apptype)
                     
                         # if person.is_valid():
                         appointment.save() 
@@ -191,6 +192,7 @@ def update(request, id):
                     meettime=request.POST.get('time','')
                     urgency=request.POST.get('urgency','')
                     description=request.POST.get('description','')
+                    apptype=request.POST.get('apptype','')
                     created_by=appointment.created_by
 
                     appointment.name=name
@@ -198,6 +200,7 @@ def update(request, id):
                     appointment.time=meettime
                     appointment.urgency=urgency
                     appointment.description=description
+                    appointment.apptype=apptype
 
                     appointment.save()
                     messages.success(request,"Appointment updated!")
@@ -226,27 +229,28 @@ def showAppointments(request):
         
         # if personname ==appowner:
             
-            lows=Appointment.objects.all().filter(urgency="low")
+            upcoming=Appointment.objects.all().filter(apptype="upcoming")
 
-            highs=Appointment.objects.all().filter(urgency="high")
+            print(upcoming.count())
 
-            highnum=highs.count()
+            completed=Appointment.objects.all().filter(apptype="completed")
 
-            lownum=lows.count()
-           
-            meds=Appointment.objects.all().filter(urgency='medium')
+            print(completed.count())
 
-            mednum=meds.count()
-           
+            undecided=Appointment.objects.all().filter(apptype='undecided')
+
+            print(undecided.count())
+
             appointments = Appointment.objects.all()
 
-            num=appointments.count()
-            print(num)
+            # summary='<br><h4><b  id= "name">{{appointment.name}}</b></h4> <h6>Urgency: <b id= "urgency">{{appointment.urgency}}</b></h6><h6 class= "timedate"><b id= "date">{{appointment.date}}</b> | Timing: <b id= "time">{{appointment.time}}</b></h6>'
+
             return render(request, 'showAppointments.html', {
-            'lows':lows,
-            'highs':highs,
-            'meds':meds,
-            'appointments':appointments
+            'upcoming':upcoming,
+            'completed':completed,
+            'undecided':undecided,
+            'appointments':appointments,
+            # 'summary':summary
         })
     else:
         return redirect('/loginUser')

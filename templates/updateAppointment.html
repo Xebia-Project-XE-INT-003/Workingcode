@@ -43,6 +43,7 @@
             <li>   <a href="/addAppointment">Add meeting </a></li>
             <li>   <a href="/showAppointments">My meeting </a></li>
             <li>  <a href="#">Profile </a></li>
+            <li> <a  type="button" href="logoutUser"><button id="logout">Logout</button></a></li>
         </ul>  
     </div>
     <div id="outsideham">
@@ -62,16 +63,27 @@
 
     <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox"></textarea>
 
+    <div name="apptype">
+                   
+                   <select class="typebox" required placeholder="Meeting type" name="apptype" style="border-radius:15p;"> 
+                       <option value="" disabled selected hidden>Meeting type</option>
+                       <option value="upcoming" name="apptype">Upcoming</option>
+                       <option value="undecided" name="apptype">To be decided</option>
+                       <option value="completed" name="apptype">Completed</option>
+                    </select>
+                </p>
+    </div>
+
     <div name="urgency">
                    
                    <select class="urgbox" required placeholder="Urgency" name="urgency" style="border-radius:15p;"> 
                        <option value="" disabled selected hidden>Urgency</option>
-                       <option value="high" name="urgency">Upcoming</option>
-                       <option value="medium" name="urgency">To be decided</option>
-                       <option value="low" name="urgency">Completed</option>
+                       <option value="high" name="urgency">High</option>
+                       <option value="low" name="urgency">Low</option>
+                       {% comment %} <option value="completed" name="urgency">Completed</option> {% endcomment %}
                     </select>
                 </p>
-            </div>
+    </div>
 
     <input class="datebox" id="meetDate"  name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Meeting date (YYYY-MM-DD)">
     <input type="time" class="timebox" id="meettime" name="time" required>

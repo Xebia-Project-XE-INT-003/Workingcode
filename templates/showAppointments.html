@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>My meetings</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/addmeet.css"> 
-    </head>
-<body>
 
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>My Meetings</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+      <link rel="stylesheet" href="../static/meetings.css">
+  </head>
+  <body>
     
 
      
@@ -42,62 +38,121 @@
                         <li>   <a href="/addAppointment">Add meeting </a></li>
                         <li>   <a href="/showAppointments">My meeting </a></li>
                         <li>  <a href="#">Profile </a></li>
+                        <li> <a  type="button" href="logoutUser"><button id="logout">Logout</button></a></li>
                     </ul>  
                 </div>
                 <div id="outsideham">
                     <span class="menu" style="font-size:36px;cursor:pointer" onclick="openNav()">&#9776;</span>
                 </div>
            </p>
+        <main>
 
+           <article>
+                <h1><b>Upcoming</b></h1>
+                
+                    <div id="accordion" class="upcoming">
+                    {% for appointment in upcoming %} 
+                        <div class="card" id="upcoming">
+                            <div class="card-header" id="headingOne">
+                                    <div class="mb-5">
+                                        <b><h4 style="font-size:30px; float:left;">{{appointment.name}}<h4></b>
+                                        
+                                        <p style="font-size:20px; float:right;">{{appointment.date}} | Timing: {{appointment.time}}</p>
+                                        <br>
+                                        <br>
+                                        <p style="font-size:16px; float:left;">Urgency: {{appointment.urgency}}</p>
+                                        <button class="btn btn-link" style="float:right;" data-toggle="collapse" data-target="#{{appointment.id}}" aria-expanded="true" aria-controls="{{appointment.id}}">  <span style='font-size:20px; color:#364764'>&#9947;</span></button>
+                                    </div>
+                            </div>
+                            
 
-        
-        <h3 class="text-center">Upcoming</h3>
-    {% for high in highs %}
-        <div class="text-center" id="high">
-            <h4>{{high.name}}</h4>
-            <h4>{{high.urgency}}</h4>
+                            <div id="{{appointment.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p style="font-size:22px; padding:0px 40px 0px 40px">{{appointment.description}}</p>
+                                        <div class= "btnpos">
 
-            <p>{{high.description}}</p>
+                                            <a href="/deleteAppointment/{{appointment.id}}"><button type="button">Cancel</button><a>
+                                            <span class= "seperator"></span>
+                                            <a href="/updateAppointment/{{appointment.id}}"><button type="button">Reschdule</button><a>
+                                        </div>
+                                </div>
+                            </div>
+                       </div>
+                 </div>
+                                        
+                    {% comment %} </div> {% endcomment %}
+               {% endfor %} 
+           </article>
 
-            <p>{{high.date}}</p>
-            <p>{{high.time}}</p>
+           
+          <article>
+            <h1><b>Undecided</b></h1>
+            {% for appointment in undecided %}
+                   <div id="accordion" class="upcoming">
+                        <div class="card" id="undecided">
+                            <div class="card-header" id="headingOne">
+                                    <div class="mb-5">
+                                        <b><h4 style="font-size:30px; float:left;">{{appointment.name}}<h4></b>
+                                        
+                                        <p style="font-size:20px; float:right;">{{appointment.date}} | Timing: {{appointment.time}}</p>
+                                        <br>
+                                        <br>
+                                        <p style="font-size:16px; float:left;">Urgency: {{appointment.urgency}}</p>
+                                        <button class="btn btn-link" style="float:right;" data-toggle="collapse" data-target="#{{appointment.id}}" aria-expanded="true" aria-controls="{{appointment.id}}"><span style='font-size:20px; color:#364764'>&#9947;</span></button>
+                                    </div>
+                            </div>
+                            
 
-            <a href="/deleteAppointment/{{high.id}}"><button>Cancel</button><a>
-            <a href="/updateAppointment/{{high.id}}"><button>Reschedule</button><a>
-        </div>
-    {% endfor %}
+                            <div id="{{appointment.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p style="font-size:22px; padding:0px 40px 0px 40px">{{appointment.description}}</p>
+                                        <div class= "btnpos">
 
-        <h3 class="text-center">Undecided</h3>
-    {% for med in meds %}
-        <div class="text-center" id="med">
-            <h4>{{med.name}}</h4>
-            <h4>{{med.urgency}}</h4>
+                                            <a href="/deleteAppointment/{{appointment.id}}"><button type="button">Cancel</button><a>
+                                            <span class= "seperator"></span>
+                                            <a href="/updateAppointment/{{appointment.id}}"><button type="button">Reschdule</button><a>
+                                        </div>
+                                </div>
+                            </div>
+                       </div>
+                 </div>
+                {% endfor %}
+          </article>
+          
+          <article>
+            <h1><b>Completed</b></h1>
+            {% for appointment in completed %}
+                     <div id="accordion" class="upcoming">
+                        <div class="card" id="completed">
+                            <div class="card-header" id="headingOne">
+                                    <div class="mb-5">
+                                        <b><h4 style="font-size:30px; float:left;">{{appointment.name}}<h4></b>
+                                        
+                                        <p style="font-size:20px; float:right;">{{appointment.date}} | Timing: {{appointment.time}}</p>
+                                        <br>
+                                        <br>
+                                        <p style="font-size:16px; float:left;">Urgency: {{appointment.urgency}}</p>
+                                        <button class="btn btn-link" style="float:right;" data-toggle="collapse" data-target="#{{appointment.id}}" aria-expanded="true" aria-controls="{{appointment.id}}"><span style='font-size:20px; color:black;'>&#9947;</span></button>
+                                    </div>
+                            </div>
+                            
 
-            <p>{{med.description}}</p>
+                            <div id="{{appointment.id}}" class="collapse show" aria-labelledby="{{appointment.id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p style="font-size:22px; padding:0px 40px 0px 40px">{{appointment.description}}</p>
+                                        <div class= "btnpos">
 
-            <p>{{med.date}}</p>
-            <p>{{med.time}}</p>
-
-            <a href="/deleteAppointment/{{med.id}}"><button>Cancel</button><a>
-            <a href="/updateAppointment/{{med.id}}"><button>Reschedule</button><a>
-        </div>
-    {% endfor %}
-
-        <h3 class="text-center">Completed</h3>
-    {% for low in lows %}
-        <div class="text-center" id="low">
-            <h4>{{low.name}}</h4>
-            <h4>{{low.urgency}}</h4>
-
-            <p>{{low.description}}</p>
-
-            <p>{{low.date}}</p>
-            <p>{{low.time}}</p>
-
-            <a href="/deleteAppointment/{{low.id}}"><button>Cancel</button><a>
-            <a href="/updateAppointment/{{low.id}}"><button>Reschedule</button><a>
-        </div>
-    {% endfor %}
+                                            <a href="/deleteAppointment/{{appointment.id}}"><button type="button">Cancel</button><a>
+                                            <span class= "seperator"></span>
+                                            <a href="/updateAppointment/{{appointment.id}}"><button type="button">Reschdule</button><a>
+                                        </div>
+                                </div>
+                            </div>
+                       </div>
+                 </div>
+                {% endfor %}
+          </article>
+        </main>
 
 <script>
     function openNav() {
@@ -112,11 +167,14 @@
         var alertId = document.getElementById('myAlert')
         alertId.classList.add('modal')
     },2000);
+
+    document.getElementById("myBtn").addEventListener("click", function() {
+  alert("Hello World!");
+});
 </script>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
-    </div>
-    </html>    
+</body>
+</html>    

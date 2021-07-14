@@ -26,6 +26,7 @@ class Appointment(models.Model):
    date=models.CharField(max_length=122, default='2000-12-30')
    time=models.CharField(max_length=122, default='9:00 AM')
    urgency=models.CharField(max_length=122)
+   apptype=models.CharField(max_length=122,default='upcoming')
    description=models.CharField(max_length=400)
    created_by=models.CharField(default='admin',max_length=122)
    def __str__(self):

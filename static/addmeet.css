@@ -128,7 +128,7 @@ body {
 
 
 
-  #meetTitle,#description,#urgency,#meetDate,#meetTime{
+  #meetTitle,#description,#urgency,#meetDate,#meetTime,#type{
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
@@ -139,7 +139,7 @@ body {
     left: 50px;
   }
  
-  .titlebox,.dscbox,.urgbox,.datebox,.timebox{
+  .titlebox,.dscbox,.urgbox,.datebox,.timebox,.typebox{
     background: #FFFFFF;
     border: 2px solid #000000;
     box-sizing: border-box;
@@ -161,7 +161,7 @@ body {
   }
   .urgbox{
     position: absolute;
-    width: 200px;
+    width: 100px;
     height: 50px;
     top: 460px;
     margin-left: 600px;
@@ -179,11 +179,24 @@ body {
     top: 600px;
     margin-left: 600px;
   }
-  input,select{
+
+  .typebox{
+    margin-left: 500px;
+    position: absolute;
+    width: 150px;
+    height: 50px;
+    top: 460px;
+    margin-left: 790px;
+  }
+  input{
       border: none;
       white-space: normal;
 line-height: normal;
   }
+
+select{
+  background-radius:15px;
+}
 
 #logout{
   /* margin-right: 100px; */
