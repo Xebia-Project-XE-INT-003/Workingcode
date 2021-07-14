@@ -6,14 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
 from django.template import RequestContext
 from django.contrib import messages
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 import time
-from .forms import *
-
-
-# def check():
-
 
 def register(request):
     if request.method=="POST":
@@ -41,19 +34,18 @@ def register(request):
                     # if person.is_valid():
                     person.save() 
                     
-                    messages.success(request,"Registration Successful!")
-                    temp=i
-                    #return render(request,'register.html')
-                    return render(request,'login.html')   
                     
-                except:
-                    print("EXCEPT")
                     temp=i
-                    messages.error(request,"Wrong email format!")
-                    return render(request, 'register.html')
+                    messages.success(request,"Registration Successful!")
+                    return render(request,'register.html')
+                    # return redirect('/loginUser')     
+                except:
+                    temp=i
+                    messages.error(request,"User already exists, Try to login!")
+                    return render(request, 'login.html')
+                
 
         if email_handle!=temp:
-            print("WRONG")
             messages.error(request,"Wrong email format!")
             return render(request, 'register.html')
             
@@ -75,12 +67,15 @@ def loginUser(request):
             request.session['personName']=person.name
             request.session['loggedin']=person.is_loggedIn
             request.session['person']=person.toJSON()
-                    # messages.success(request,"Login successful!")
+
+            # time.sleep(1)
+            messages.success(request,"Login successful!")
             return redirect("/addAppointment")
                 
         except Person.DoesNotExist:
-                messages.success(request,"User not available!")
+                messages.warning(request,"User not available!")
                 return render(request, 'register.html')
+        
 
     return render(request, 'login.html')
 
@@ -127,64 +122,33 @@ def addAppointment(request):
                     
                         # if person.is_valid():
                         appointment.save() 
-                        return redirect("/showAppointments")   
+                        messages.success(request,"Appointment added!")
                         
-
+                        return redirect("/showAppointments")   
                     except:
-                        return render(request, 'addAppointment.html')
-
+                        messages.warning(request,"Unable to add appointment, check the fields again!")
+                        return redirect(request, "/addAppointment")
+                    
     else:
         return redirect("/loginuser")
     return render(request, 'addAppointment.html')
 
-
-#add appointments
-#  def addAppointment(request):
-    
-#     personLogin=request.session.get('loggedin')
-
-#     if personLogin:
-#         personname=request.session.get('personName')
-
-#         print(personname)
-
-#         if request.method == 'POST':
-                    
-#                 name=request.POST.get('name',''),
-#                 meetdate=request.POST.get('date',''),
-#                 meettime=request.POST.get('time',''),
-#                 urgency=request.POST.get('urgency',''),
-#                 description=request.POST.get('description',''),
-#                 created_by=personname
-
-#                 appointment=Appointment(name=name,date=meetdate,time=meettime,urgency=urgency,description=description,created_by=created_by)
-
-#                 print("save")
-#                 appointment.save()
-#                 print(appointment.id)
-#                 request.session['createdby']=appointment.created_by
-#                 request.session['urgency']=appointment.urgency
-#                 return redirect('showAppointments')
-                    
-#         else:
-#                 return render(request, 'addAppointment.html')
-
-#     else:
-#         return redirect('/loginUser')
-
-
 #delete appointments
 def deleteAppointment(request,id):
-    # appointment=Appointment.objects.get(id=id)
-    # print(appID)
+    
     try:
         appointment=Appointment.objects.get(id=id)
         print(appointment)
         appointment.delete()
+
+        messages.success(request,"Appointment deleted!")
+        return redirect('/showAppointments')
+        
     except Appointment.DoesNotExist:
         # return redirect('index')
-        return redirect('showAppointments')
-    return redirect('showAppointments')
+        return redirect('/showAppointments')
+    
+    return redirect('/showAppointments')
 
 
 #update appointments
@@ -192,12 +156,6 @@ def updateAppointment(request, id):
 
     try:
         appointment = Appointment.objects.get(id = id)
-
-        # app_form = AppointmentUpdate(request.POST or None, instance =appointment)
-        # if app_form.is_valid():
-        #     app_form.save()
-        #     return redirect('index')
-        # return render(request, 'addAppointment.html', {'upload_form':app_form})
 
         return render(request, 'updateAppointment.html',{
             'appointment':appointment
@@ -218,17 +176,6 @@ def updateAppointment(request, id):
         # return redirect('index')
         print("Not in db")
     
-    # name=request.POST.get('name'),
-    # date=request.POST.get('date'),
-    # time=request.POST.get('time'),
-    # urgency=request.POST.get('urgency'),
-    # description=request.POST.get('description')
-
-    # appointment=Appointment(name=name,date=date,time=time,urgency=urgency,description=description)
-
-    # if appointment.is_valid():
-    #     appointment.save()
-        # return redirect('index')
     return render(request,'showAppointments.html')
 
  
@@ -253,18 +200,19 @@ def update(request, id):
                 appointment.description=description
 
                 appointment.save()
-                
                 messages.success(request,"Appointment updated!")
+                # time.sleep(2)
                 return redirect('/showAppointments')
 
             except:
-                print("OUT")
+                messages.warning(request,"Unable to update appointment")
                 return redirect('/showAppointments')
+            
+            
 
     else: 
-        print("Else")
-    print("OUTEST")
-    return redirect('/showAppointments')
+
+        return redirect('/showAppointments')
 
 
 
@@ -296,10 +244,7 @@ def showAppointments(request):
 
             mednum=meds.count()
             print(mednum)
-            # database.collection.find( { qty: { $gt: 4 } } )
-
-            
-
+           
             appointments = Appointment.objects.all()
 
             num=appointments.count()
@@ -313,8 +258,3 @@ def showAppointments(request):
     else:
         return redirect('/loginUser')
     return render(request,'showAppointments.html')
-#show appointments
-# def showAppointments(request, time):
-#     appointments = Appointment.objects.all()
-#     return render(request, 'appointments.html')
-

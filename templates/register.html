@@ -16,16 +16,16 @@
     <body>
 
     
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}}" role="alert">
-    {{ message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    {% endfor %}
-    {% endif %}
+   {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} text-center" role="alert" id="myAlert" style="top:100px; width:230px; left:700px;">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
+        {% endif %}
 
         <div class="register">
             <h1 id="head">We are glad to serve you!</h1>
@@ -40,19 +40,26 @@
                 <form action="/register" method="post">
 
                 {% csrf_token %}
-                    <input type="text" placeholder="Your Name" id="name" name="name"> 
+                    <input type="text" placeholder="Your Name" id="name" name="name" minlength="5"> 
 
                     <input type="email" placeholder="Your Email" id="email" name="email">
 
                     <input type="text" placeholder="Occupation" id="occupation" name="occupation"> 
 
-                    <input type="password" placeholder="Set a password" id="password" name="password"> 
+                    <input type="password" placeholder="Set a password" id="password" name="password" minlength="6"> 
                     
-                    <input type="password" placeholder="Repeat password" id="reenter" name="reenter"> 
+                    <input type="password" placeholder="Repeat password" id="reenter" name="reenter" minlength="6"> 
 
                     <button type="submit" id="register">Register</button>
                 </form>
             </div>
         </div>
+
+        <script>
+            setTimeout(()=>{
+            var alertId = document.getElementById('myAlert')
+            alertId.classList.add('modal')
+            },2000);
+        </script>
     </body>
 </html>

@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="../static/addmeet.css">
 </head>
 <body>
+
+ {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} text-center" role="alert" id="myAlert" style="top:100px; width:230px; left:700px;">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
         <nav class="navbar-light">
                <ul class="nav justify-content-center">
        
@@ -53,6 +65,8 @@
            </p>
     
 
+   
+
 <form action="addAppointment" method="post">
 
 {% csrf_token %}
@@ -75,7 +89,7 @@
     <input class="datebox" id="meetDate"  name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Meeting date (YYYY-MM-DD)">
     <!--<input class="timebox" id= "meetTime"  name="time" placeholder="Meeting Timing (Ex: 9:00 AM)">-->
 
-    <input type="time" class="timebox" id="meettime" name="time" min="09:00" max="18:00" required>
+    <input type="time" class="timebox" id="meettime" name="time" required>
 
 
     <input id="donebutton" class="Donebtn" type ="submit" value= "Done" >
@@ -89,6 +103,12 @@
     function closeNav() {
       document.getElementById("mySidenav").style.width = "0px";
     }
+
+    
+    setTimeout(()=>{
+        var alertId = document.getElementById('myAlert')
+        alertId.classList.add('modal')
+    },2000);
 </script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

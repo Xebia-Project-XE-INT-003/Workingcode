@@ -5,10 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-    <title>Add Meeting</title>
+    <title>Update Meeting</title>
     <link rel="stylesheet" href="../static/addmeet.css">
 </head>
 <body>
+
+{% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert" id="myAlert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
+        {% endif %}
  <nav class="navbar-light">
         <ul class="nav justify-content-center">
 
@@ -22,20 +33,20 @@
                 <a class="text-light btn" href="#"><h3>Calendar</h3></a>
             </li>
             <li class="nav-item" id="c">
-                <a class="text-light btn" href="contact"><h3>About</h3></a>
+                <a class="text-light btn" href="/contact"><h3>About</h3></a>
             </li>
             <li class="nav-item" id="d">
-                <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
+                <a class="text-light btn" href="/contact"><h3>Contact us</h3></a>
             </li>
-            <li class="nav-item" id="d">
-                <a id="logout button" class="text-light btn" type="button" href="contact"><h3>Logout</h3></a>
+            <li class="nav-item" id="e">
+                <a id="logout" class="text-light btn" type="button" href="/logoutUser"><h3>Logout</h3></a>
             </li>
         </ul>
     </nav>
 
 {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}" role="alert">
+        <div class="alert alert-{{ message.tags }} text-center" role="alert" id="myAlert" style="top:100px; width:230px; left:700px;">
         {{ message }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -50,9 +61,9 @@
             <div id="insideham" class="insidehamburger">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
             </div>  
-            <li>  <a href="#">Dashboard </a></li>
-            <li>   <a href="#">Add meeting </a></li>
-            <li>   <a href="#">My meeting </a></li>
+            <li>  <a href="/showAppointments">Dashboard </a></li>
+            <li>   <a href="/addAppointment">Add meeting </a></li>
+            <li>   <a href="/showAppointments">My meeting </a></li>
             <li>  <a href="#">Profile </a></li>
         </ul>  
     </div>
@@ -69,21 +80,24 @@
 
 {% csrf_token %}
 
-    <p>Meeting Title :<input type = "text"  name="name" value="{{appointment.name}}"></p>
-    <p>Description : <input type = "text"  name ="description"></p>
-    <p>Urgency : 
-    <select required name="urgency"> 
-        <option value="" disabled selected hidden>Choose one</option>
-        <option value="high">High</option>
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-    </select>
-    </p>
+    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5">
 
-    {% comment %} <input type="text" name="date"> {% endcomment %}
+    <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox"></textarea>
 
-    <p>Meeting Date : <input type="text" name="date" required pattern="\d{4}-\d{2}-\d{2}"></p>
-    <p>Meeting Timing : <input type = "text" name="time"></p>
+    <div name="urgency">
+                   
+                   <select class="urgbox" required placeholder="Urgency" name="urgency" style="border-radius:15p;"> 
+                       <option value="" disabled selected hidden>Urgency</option>
+                       <option value="high" name="urgency">Upcoming</option>
+                       <option value="medium" name="urgency">To be decided</option>
+                       <option value="low" name="urgency">Completed</option>
+                    </select>
+                </p>
+            </div>
+
+    <input class="datebox" id="meetDate"  name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Meeting date (YYYY-MM-DD)">
+    <input type="time" class="timebox" id="meettime" name="time" required>
+
 
     <input id="donebutton" class="Donebtn" type ="submit" value= "Done" >
 </form>
@@ -96,6 +110,11 @@
     function closeNav() {
       document.getElementById("mySidenav").style.width = "0px";
     }
+
+    setTimeout(()=>{
+        var alertId = document.getElementById('myAlert')
+        alertId.classList.add('modal')
+    },2000);
 </script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
