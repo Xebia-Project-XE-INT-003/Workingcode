@@ -6,7 +6,9 @@
 
 body {
     font-family: "Lato", sans-serif;
-    background-color: #d1d1d1;
+    background: url('../static/imgs/appback.png');
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
   .sidenav {
@@ -123,12 +125,13 @@ body {
       font-weight: 900;
       color: #233554;
       font-family: "Lato", sans-serif;
-      margin-left: 1300px;
+      margin-left: 940px;
+      margin-top: -20px;
   }
 
 
 
-  #meetTitle,#description,#urgency,#meetDate,#meetTime,#type{
+  #meetTitle,#description,#urgency,#meetDate,#meetTime,#type,#email{
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
@@ -136,10 +139,10 @@ body {
     line-height: 33px;
     color: #000000;
 
-    left: 50px;
+    left: 260px;
   }
  
-  .titlebox,.dscbox,.urgbox,.datebox,.timebox,.typebox{
+  .titlebox,.dscbox,.urgbox,.datebox,.timebox,.typebox,.emailbox{
     background: #FFFFFF;
     border: 2px solid #000000;
     box-sizing: border-box;
@@ -151,42 +154,50 @@ body {
     position: absolute;
     width: 340px;
     height: 50px;
-    top: 270px;
+    top: 180px;
   }
   .dscbox{
     position: absolute;
     width: 340px;
     height: 100px;
-    top: 340px;
+    top: 250px;
   }
   .urgbox{
     position: absolute;
     width: 100px;
     height: 50px;
-    top: 460px;
-    margin-left: 600px;
+    top: 370px;
+    margin-left: 810px;
   }
   .datebox{
     position: absolute;
     width: 340px;
     height: 50px;
-    top: 530px;
+    top: 440px;
   }
   .timebox{
     position: absolute;
     width: 340px;
     height: 50px;
-    top: 600px;
-    margin-left: 600px;
+    top: 510px;
+    margin-left: 810px;
   }
+
+.emailbox{
+  position: absolute;
+  width: 340px;
+  height: 50px;
+  top: 590px;
+  margin-left: 550px;
+}
 
   .typebox{
     margin-left: 500px;
     position: absolute;
     width: 150px;
     height: 50px;
-    top: 460px;
-    margin-left: 790px;
+    top: 370px;
+    margin-left: 1000px;
   }
   input{
       border: none;
