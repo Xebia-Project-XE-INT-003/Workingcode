@@ -40,15 +40,15 @@
                 <form action="/register" method="post">
 
                 {% csrf_token %}
-                    <input type="text" placeholder="Your Name" id="name" name="name" minlength="5"> 
+                    <input type="text" placeholder="Your Name" id="name" name="name" minlength="5" title="Minimum length required is 5" required> 
 
-                    <input type="email" placeholder="Your Email" id="email" name="email">
+                    <input type="email" placeholder="Your Email" id="email" name="email" required>
 
                     <input type="text" placeholder="Occupation" id="occupation" name="occupation"> 
 
-                    <input type="password" placeholder="Set a password" id="password" name="password" minlength="6"> 
+                    <input type="password" placeholder="Set a password" id="password" name="password" minlength="6" title="Minimum length required is 6" required> 
                     
-                    <input type="password" placeholder="Repeat password" id="reenter" name="reenter" minlength="6"> 
+                    <input type="password" placeholder="Repeat password" id="reenter" name="reenter" minlength="6" title="Minimum length required is 6" required> 
 
                     <button type="submit" id="register">Register</button>
                 </form>

@@ -29,9 +29,9 @@
                 <form action="loginUser" method="post"> 
                 {% csrf_token %}
 
-                    <input type="email" placeholder="Your Email" id="email" name="email" minlength="5">
+                    <input type="email" placeholder="Your Email" id="email" name="email" minlength="5" required>
 
-                    <input type="password" placeholder="Your password" id="password" name="password" minlength="6"> 
+                    <input type="password" placeholder="Your password" id="password" name="password" minlength="6" required title="Minimum length required is 6"> 
 
                     <button type="submit" id="login">Login</button>
                 </form>

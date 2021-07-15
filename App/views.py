@@ -117,8 +117,11 @@ def addAppointment(request):
                     meettime=request.POST.get('time','')
                     urgency=request.POST.get('urgency','')
                     apptype=request.POST.get('apptype','')
+                    email=request.POST.get('email','')
                     created_by=personname
-                    
+
+                    emails=email.split(",",1)
+                    print(emails)                   
                     try:
                         appointment=Appointment(name=name,date=meetdate,time=meettime, description=description, created_by=created_by, urgency=urgency,apptype=apptype)
                     
@@ -130,14 +133,7 @@ def addAppointment(request):
                         request.session['owner']=appointment.created_by
 
                         appointment.save() 
-                        
-
-                        # request.session['person']=created_by
-                        
-                        emails=["500067458@stu.upes.ac.in","maulikchhabra@gmail.com"]
-
                         request.session['emails']=emails
-                        
                         
                         doEmail(request,emails,1)
                         messages.success(request,"Appointment added!")
@@ -146,9 +142,7 @@ def addAppointment(request):
                     except:
                         messages.warning(request,"Unable to add appointment, check the fields again!")
                         return redirect("/addAppointment")
-
-                    
-                    
+      
     else:
         return redirect("/loginuser")
     return render(request, 'addAppointment.html')

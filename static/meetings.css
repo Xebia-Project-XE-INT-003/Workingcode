@@ -11,16 +11,30 @@ body {
   }
 
 article {
-  margin-left: 300px;
+  margin-left: 400px;
   margin-bottom: 40px;
   width: 700px;
+}
+
+
+#logout{
+  /* margin-right: 100px; */
+  border-radius: 15px;
+  height: 40px;
+  width: 90px;
+  margin-top:25px;
+  border: 2px white solid;
+  font-size: 20px;
+  padding: 5px;
+  color: white;
+  background-color: #233554;
 }
 
 #upcoming{
   margin-top: 30px;
   height: fit-content;
   min-height: 80px;
-  width: 1150px;
+  width: 800px;
   border-radius: 15px;
   background-color: #fc7675;
 }
@@ -29,7 +43,7 @@ article {
     margin-top: 30px;
     height: fit-content;
     min-height: 80px;
-    width: 1150px;
+    width: 800px;
     border-radius: 15px;
     background-color: orange;
 }
@@ -38,11 +52,10 @@ article {
     margin-top: 30px;
     height: fit-content;
     min-height: 80px;
-    width: 1150px;
+    width: 800px;
     border-radius: 15px;
     background-color: #758283;
   }
-
 
 .btnpos button {
   border-radius: 15px;
@@ -60,15 +73,16 @@ article {
   margin-left: 910px;
 }
 .btnpos {
-  margin-left: 455px;
+  margin-left: 280px;
   padding-bottom: 20px;
 }
-  .sidenav {
+
+.sidenav {
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 100px;
+    top: 40px;
     left: 0;
     background-color: #233554;
     overflow-x: hidden;
@@ -86,12 +100,12 @@ article {
     display: block;
     transition: 0.3s;
   }
-  
+/*   
   .sidenav a:hover:not(.closebtn) {
     font-size: 26px;
     color: #f1f1f1;
     font-weight: bolder;
-  }
+  } */
   
   .sidenav .closebtn {
     position: absolute;
@@ -106,11 +120,9 @@ article {
     .sidenav a {font-size: 18px;}
   }
 
-  
-
   .insidehamburger {
     position: absolute;
-    top: 40px;
+    top: 10px;
     width: 95%;
     height: 55px;
     background-color: #f1f1f1;

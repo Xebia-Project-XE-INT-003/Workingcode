@@ -12,9 +12,6 @@
   </head>
   <body>
     
-
-     
-
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }} text-center" role="alert" id="myAlert" style="top:100px; width:230px; left:700px;">
@@ -27,7 +24,7 @@
         {% endif %}
 
     <!-- Sidebar -->
-            <p>
+           <p>
                 <div id="mySidenav" class="sidenav">
                     <div class="insidehamburger">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>   
@@ -38,15 +35,16 @@
                         <li>   <a href="/addAppointment">Add meeting </a></li>
                         <li>   <a href="/showAppointments">My meeting </a></li>
                         <li>  <a href="#">Profile </a></li>
-                        <li> <a  type="button" href="logoutUser"><button id="logout">Logout</button></a></li>
+                        <li> <a  type="button" href="logoutUser"><button id="logout">Logout</button></a><li>
                     </ul>  
                 </div>
                 <div id="outsideham">
                     <span class="menu" style="font-size:36px;cursor:pointer" onclick="openNav()">&#9776;</span>
                 </div>
            </p>
-        <main>
+    
 
+        <main>
            <article>
                 <h1><b>Upcoming</b></h1>
                 
@@ -153,6 +151,25 @@
                 {% endfor %}
           </article>
         </main>
+{% comment %} 
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0px";
+    }
+
+
+    setTimeout(()=>{
+        var alertId = document.getElementById('myAlert')
+        alertId.classList.add('modal')
+    },2000);
+
+
+</script> {% endcomment %}
+
 
 <script>
     function openNav() {
@@ -167,10 +184,6 @@
         var alertId = document.getElementById('myAlert')
         alertId.classList.add('modal')
     },2000);
-
-    document.getElementById("myBtn").addEventListener("click", function() {
-  alert("Hello World!");
-});
 </script>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -10,19 +10,7 @@
 </head>
 <body>
 
-{% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}" role="alert" id="myAlert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        {% endfor %}
-        {% endif %}
-
-
-{% if messages %}
+ {% if messages %}
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }} text-center" role="alert" id="myAlert" style="top:100px; width:230px; left:700px;">
         {{ message }}
@@ -33,65 +21,72 @@
         {% endfor %}
         {% endif %}
 
+       
+                   {% comment %} <li id="e" >
+                        <a  type="button" href="logoutUser"><button id="logout">Logout</button></a>
+                   </li> {% endcomment %}
+           
     <p>
-    <div id="mySidenav" class="sidenav">
-        <ul class="meetbar">
-            <div id="insideham" class="insidehamburger">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
-            </div>  
-            <li>  <a href="/showAppointments">Dashboard </a></li>
-            <li>   <a href="/addAppointment">Add meeting </a></li>
-            <li>   <a href="/showAppointments">My meeting </a></li>
-            <li>  <a href="#">Profile </a></li>
-            <li> <a  type="button" href="logoutUser"><button id="logout">Logout</button></a></li>
-        </ul>  
-    </div>
-    <div id="outsideham">
-        <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-    </div>
-    </p>
-
-    <img src="../static/imgs/upapp.png" style="height:600x; width:600px; margin-top:-50px;">  
+                <div id="mySidenav" class="sidenav">
+                    <div class="insidehamburger">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>   
+                    </div>
+                    <span id= "dot1"></span>
+                    <ul class="meetbar">      
+                        <li>  <a href="/showAppointments">Dashboard </a></li>
+                        <li>   <a href="/addAppointment">Add meeting </a></li>
+                        <li>   <a href="/showAppointments">My meeting </a></li>
+                        <li>  <a href="#">Profile </a></li>
+                        <li> <a  type="button" href="logoutUser"><button id="logout">Logout</button></a><li>
+                    </ul>  
+                </div>
+                <div id="outsideham">
+                    <span class="menu" style="font-size:36px;cursor:pointer" onclick="openNav()">&#9776; </span>
+                </div>
+           </p>
     
-{% comment %} <div id="Donebtn">
-    <button id="donebutton" type ="submit" value= "Done" >
-</div>  {% endcomment %}
+        <img src="../static/imgs/upapp.png" style="height:550px; width:550px; margin-top:-20px; margin-left:60px;">
+   
 
-<form action="/update/{{appointment.id}}" method="post">
+<form action="addAppointment" method="post">
 
 {% csrf_token %}
 
-    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5" value="{{appointment.name}}">
+    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5">
 
-    <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox"></textarea>
-
-    <div name="apptype">
-                   
-                   <select class="typebox" required placeholder="Meeting type" name="apptype" style="border-radius:15p;"> 
-                       <option value="" disabled selected hidden>Meeting type</option>
-                       <option value="upcoming" name="apptype">Upcoming</option>
-                       <option value="undecided" name="apptype">To be decided</option>
-                       <option value="completed" name="apptype">Completed</option>
-                    </select>
-                </p>
-    </div>
+    <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox" minlength="10"></textarea>
 
     <div name="urgency">
                    
-                   <select class="urgbox" required placeholder="Urgency" name="urgency" style="border-radius:15p;"> 
+                   <select class="urgbox" required placeholder="Urgency" name="urgency" style="border-radius:15px;"> 
                        <option value="" disabled selected hidden>Urgency</option>
                        <option value="high" name="urgency">High</option>
                        <option value="low" name="urgency">Low</option>
-                       {% comment %} <option value="completed" name="urgency">Completed</option> {% endcomment %}
                     </select>
                 </p>
     </div>
 
+    <div name="type">
+                   
+                   <select class="typebox" required placeholder="Meeting type" name="type" style="border-radius:15px;"> 
+                       <option value="" disabled selected hidden>Meeting type</option>
+                       <option value="upcoming" name="urgency">Upcoming</option>
+                       <option value="undecided" name="urgency">To be decided</option>
+                       <option value="completed" name="urgency">Completed</option>
+                    </select>
+                </p>
+    </div>
+
+
     <input class="datebox" id="meetDate"  name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Meeting date (YYYY-MM-DD)">
+
+    <textarea  placeholder="Member's Emails" id="emails" name="emails" class="emailbox" minlength="10"></textarea>
+    <!--<input class="timebox" id= "meetTime"  name="time" placeholder="Meeting Timing (Ex: 9:00 AM)">-->
+
     <input type="time" class="timebox" id="meettime" name="time" required>
 
 
-    <input id="donebutton" class="Donebtn" type ="submit" value= "Done" style="margin-bottom:30px;">
+    <input id="donebutton" class="Donebtn" type ="submit" value= "Done" >
 </form>
 
 <script>
@@ -103,6 +98,7 @@
       document.getElementById("mySidenav").style.width = "0px";
     }
 
+    
     setTimeout(()=>{
         var alertId = document.getElementById('myAlert')
         alertId.classList.add('modal')

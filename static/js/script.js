@@ -1,3 +1,7 @@
-document.getElementById("register").onclick = function() {
-    alert('Registration successful');
-};
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0px";
+  }

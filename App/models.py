@@ -29,6 +29,7 @@ class Appointment(models.Model):
    apptype=models.CharField(max_length=122,default='upcoming')
    description=models.CharField(max_length=400)
    created_by=models.CharField(default='admin',max_length=122)
+   emails=models.CharField(max_length=400, default='admin@gmail.com')
    def __str__(self):
        return self.name
 
