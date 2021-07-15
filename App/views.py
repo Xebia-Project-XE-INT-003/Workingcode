@@ -7,6 +7,7 @@ from django.contrib.auth import logout, login
 from django.template import RequestContext
 from django.contrib import messages
 import time
+import smtplib as s
 
 def register(request):
     if request.method=="POST":
@@ -122,37 +123,103 @@ def addAppointment(request):
                         appointment=Appointment(name=name,date=meetdate,time=meettime, description=description, created_by=created_by, urgency=urgency,apptype=apptype)
                     
                         # if person.is_valid():
+
+                        request.session['name']=appointment.name
+                        request.session['time']=appointment.time
+                        request.session['date']=appointment.date
+                        request.session['owner']=appointment.created_by
+
                         appointment.save() 
+                        
+
+                        # request.session['person']=created_by
+                        
+                        emails=["500067458@stu.upes.ac.in","maulikchhabra@gmail.com"]
+
+                        request.session['emails']=emails
+                        
+                        
+                        doEmail(request,emails,1)
                         messages.success(request,"Appointment added!")
                         
                         return redirect("/showAppointments")   
                     except:
                         messages.warning(request,"Unable to add appointment, check the fields again!")
-                        return redirect(request, "/addAppointment")
+                        return redirect("/addAppointment")
+
+                    
                     
     else:
         return redirect("/loginuser")
     return render(request, 'addAppointment.html')
 
+def doEmail(request,emails,flag):
+    person=request.session.get('owner')
+    time=request.session.get('time')
+    name=request.session.get('name')
+    date=request.session.get('date')
+    
+    delperson=request.session.get('delowner')
+    deltime=request.session.get('deltime')
+    delname=request.session.get('delname')
+    deldate=request.session.get('deldate')
+
+    upperson=request.session.get('upowner')
+    uptime=request.session.get('uptime')
+    upname=request.session.get('upname')
+    update=request.session.get('update')
+   
+    for email in emails:
+        ob=s.SMTP("smtp.gmail.com",587)
+        ob.connect("smtp.gmail.com",587)
+        ob.starttls()
+
+        ob.login("yourworkappointments@gmail.com","workapp123")
+
+        if flag==1:
+            subject="New appointment: "+name
+            body ="You have a new appointment scheduled with "+ person+ " on "+ date+" at "+time+"."+" (according to 24-hour format) "
+        
+        elif flag==2:
+            subject="Deleted appointment: "+name
+            body ="Your appointment with "+ person+ " which was on "+ date+" at "+time+" has been cancelled."+" (according to 24-hour format) "
+
+        else:
+            subject="Updated appointment: "+name
+            body ="The timing of your appointment with "+ person+ " which was on "+ date+" at "+time+" has been updated to "+update+" at "+uptime+". (according to 24-hour format) "
+
+        
+        message="Subject:{}\n\n{}".format(subject,body)
+        ob.sendmail("yourworkappointments@gmail.com",email,message)
+        ob.quit()
+
 #delete appointments
 def deleteAppointment(request,id):
 
     personLogin=request.session.get('loggedin')
+    emails=request.session.get('emails')
 
     if personLogin:
     
         try:
             appointment=Appointment.objects.get(id=id)
-            print(appointment)
+
+            request.session['delname']=appointment.name
+            request.session['deltime']=appointment.time
+            request.session['deldate']=appointment.date
+            request.session['delowner']=appointment.created_by
+
+
             appointment.delete()
 
+            doEmail(request,emails,2)
             messages.success(request,"Appointment deleted!")
             return redirect('/showAppointments')
             
         except Appointment.DoesNotExist:
             # return redirect('index')
             return redirect('/showAppointments')
-    
+
     return redirect('/showAppointments')
 
 
@@ -160,7 +227,7 @@ def deleteAppointment(request,id):
 def updateAppointment(request, id):
 
     personLogin=request.session.get('loggedin')
-
+    
     if personLogin:
 
         try:
@@ -174,12 +241,14 @@ def updateAppointment(request, id):
             # return redirect('index')
             print("Not in db")
     
+        
     return render(request,'showAppointments.html')
 
  
 def update(request, id):
 
     personLogin=request.session.get('loggedin')
+    emails=request.session.get('emails')
 
     if personLogin: 
         if request.method=="POST":
@@ -202,6 +271,14 @@ def update(request, id):
                     appointment.description=description
                     appointment.apptype=apptype
 
+                    request.session['upname']=appointment.name
+                    request.session['uptime']=appointment.time
+                    request.session['update']=appointment.date
+                    request.session['upowner']=appointment.created_by
+
+
+                    doEmail(request,emails,3)
+
                     appointment.save()
                     messages.success(request,"Appointment updated!")
                     # time.sleep(2)
@@ -211,6 +288,8 @@ def update(request, id):
                     messages.warning(request,"Unable to update appointment")
                     return redirect('/showAppointments')
             
+                
+                
     else: 
 
         return redirect('/showAppointments')
@@ -231,15 +310,9 @@ def showAppointments(request):
             
             upcoming=Appointment.objects.all().filter(apptype="upcoming")
 
-            print(upcoming.count())
-
             completed=Appointment.objects.all().filter(apptype="completed")
 
-            print(completed.count())
-
             undecided=Appointment.objects.all().filter(apptype='undecided')
-
-            print(undecided.count())
 
             appointments = Appointment.objects.all()
 
