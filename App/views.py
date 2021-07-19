@@ -103,6 +103,9 @@ def contact(request):
     return render(request, 'contact.html')
 
 
+def profile(request):
+    return render(request, 'profile.html')
+
 def addAppointment(request):
     personLogin=request.session.get('loggedin')
     personname=request.session.get('personName')
@@ -281,9 +284,7 @@ def update(request, id):
                 except:
                     messages.warning(request,"Unable to update appointment")
                     return redirect('/showAppointments')
-            
-                
-                
+                    
     else: 
 
         return redirect('/showAppointments')

@@ -23,5 +23,7 @@ urlpatterns =[
 
       path('updateAppointment/<int:id>',views.updateAppointment),
 
-      path('update/<int:id>',views.update, name='update')
+      path('update/<int:id>',views.update, name='update'),
+
+      path('profile',views.profile, name='profile')
 ]

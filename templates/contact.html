@@ -1,54 +1,54 @@
-    <!DOCTYPE html>
-    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-    <!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
-    <html>
+  
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Contact us</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/contact.css">
+        <link rel="stylesheet" href="../static/contact.css">
     </head>
-    <nav class="navbar-light">
-                <ul class="nav justify-content-center">
-        
-                    <li class="nav-item" id="a">
-                        <a class="text-light btn" href=""><h3>Home</h3></a>
-                    </li>
-        
-                    <span class="nav-item" id= "dot"></span>
-        
-                    <li class="nav-item" id="b">
-                        <a class="text-light btn" href="#"><h3>Calendar</h3></a>
-                    </li>
-                    <li class="nav-item" id="c">
-                        <a class="text-light btn" href="contact"><h3>About</h3></a>
-                    </li>
-                    <li class="nav-item" id="d">
-                        <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
-                    </li>
-                    <li  id="e">
-                        <a  type="button" href="logoutUser"><button id="logout" class="text-light btn">Logout</button></a>
-                    </li>
-                </ul>
-            </nav>
-
+    
     <body>
+        <nav class="navbar-light">
+        <ul class="nav justify-content-center">
+
+            <li class="nav-item" id="a">
+                <a class="text-light btn" href=""><h3>Home</h3></a>
+            </li>
+
+            <span class="dot"></span>
+
+            <li class="nav-item" id="b">
+                <a class="text-light btn" href="#"><h3>Calendar</h3></a>
+            </li>
+            <li class="nav-item" id="c">
+                <a class="text-light btn" href="contact"><h3>About</h3></a>
+            </li>
+            <li class="nav-item" id="d">
+                <a class="text-light btn" href="contact"><h3>Contact us</h3></a>
+            </li>
+
+        </ul>
+    </nav>
+
         <div>
-            <img id="image" src="/static/imgs/imgcontact.png" />
-            <h2 id="heading">What we do?</h2>
-            {% comment %} <p id="whatwedotext">{% lorem 1 b random %}</p> {% endcomment %}
+         <img id="image" src="../static/imgs/imgcontact.png"/>
+        <h2 id="heading">What we do?</h2>
+        <p id="text">Managing your business's appointments is more than just keeping your staff's calendar up to date and allowing clients, customers, and patients to book online. It is a free appointment scheduling app that makes life easier for professionals. The app helps you effortlessly schedule appointments.</p>
         </div>
         <div>
-            {% comment %} <h4 id="company">Company Name</h4> {% endcomment %}
+        <h4 id="company">Company Name</h4>
         </div>
-        {% comment %} <h4 id="contact">Contact Us</h4> {% endcomment %}
+        <h4 id="contact">Contact Us</h4>
         <div class="form text-center">
-            <form action="">
+            <form action=""> 
 
                 <input type="name" placeholder="Your Name" id="name" name="name">
                 <input type="email" placeholder="Your Email" id="email" name="email">
@@ -56,8 +56,10 @@
 
             </form>
         </div>
+
+        <h4 id="links">Quick links<h4>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
-    </html>
+</html>

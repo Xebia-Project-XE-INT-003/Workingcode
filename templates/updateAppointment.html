@@ -36,8 +36,8 @@
                         <li>  <a href="/showAppointments">Dashboard </a></li>
                         <li>   <a href="/addAppointment">Add meeting </a></li>
                         <li>   <a href="/showAppointments">My meeting </a></li>
-                        <li>  <a href="#">Profile </a></li>
-                        <li> <a  type="button" href="logoutUser"><button id="logout">Logout</button></a><li>
+                        <li>  <a href="/profile">Profile </a></li>
+                        <li> <a  type="button" href="/logoutUser"><button id="logout">Logout</button></a><li>
                     </ul>  
                 </div>
                 <div id="outsideham">
@@ -45,14 +45,14 @@
                 </div>
            </p>
     
-        <img src="../static/imgs/upapp.png" style="height:550px; width:550px; margin-top:-20px; margin-left:60px;">
+        {% comment %} <img src="../static/imgs/upapp.png" style="height:550px; width:550px; margin-top:-20px; margin-left:60px;"> {% endcomment %}
    
 
-<form action="addAppointment" method="post">
+<form action="/update/{{appointment.id}}" method="post">
 
 {% csrf_token %}
 
-    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5">
+    <input  placeholder="Meeting Title" id="meetTitle" name="name" class="titlebox" minlength="5" value="{{appointment.name}}">
 
     <textarea  placeholder="Meeting Description" id="description" name="description" class="dscbox" minlength="10"></textarea>
 
@@ -66,9 +66,9 @@
                 </p>
     </div>
 
-    <div name="type">
+    <div name="apptype">
                    
-                   <select class="typebox" required placeholder="Meeting type" name="type" style="border-radius:15px;"> 
+                   <select class="typebox" required placeholder="Meeting type" name="apptype" style="border-radius:15px;"> 
                        <option value="" disabled selected hidden>Meeting type</option>
                        <option value="upcoming" name="urgency">Upcoming</option>
                        <option value="undecided" name="urgency">To be decided</option>
@@ -80,7 +80,7 @@
 
     <input class="datebox" id="meetDate"  name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="Meeting date (YYYY-MM-DD)">
 
-    <textarea  placeholder="Member's Emails" id="emails" name="emails" class="emailbox" minlength="10"></textarea>
+    <textarea  placeholder="Member's Emails" id="emails" name="email" class="emailbox" minlength="10"></textarea>
     <!--<input class="timebox" id= "meetTime"  name="time" placeholder="Meeting Timing (Ex: 9:00 AM)">-->
 
     <input type="time" class="timebox" id="meettime" name="time" required>
